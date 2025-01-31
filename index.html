@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=add_photo_alternate" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=download_2" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=edit_square" />
+  <title>Contador de puntos - Free Fire</title>
+  <style>
+    body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #4F4F4F;
+  color:#e0e0e0 ;
+  text-align: center;
+}
+
+.container {
+  max-width: 90%;
+  width: 600px;
+  margin: 10px auto;
+  padding: 5px;
+}
+
+
+
+
+.top-clans {
+    text-align: center;
+}
+
+.image-box {
+    display: inline-block;
+    text-align: center;
+    margin: 10px;
+    gap: 150px;
+    position: relative;
+}
+
+
+#img1 {
+    position: relative;
+    top: -20px; /* Sube la imagen del top 1 */
+    z-index: 2;
+    max-width: 90px;
+    margin-top: 5px;
+    margin-bottom: -10px;
+}
+
+#img2, #img3 {
+    position: relative;
+    top: -60px; /* Baja un poco las imágenes del top 2 y 3 */
+    z-index: 1;
+    max-width: 80px;
+}
+#img2{
+  max-width: 80px;
+  margin-bottom: 0;
+}
+#img3{
+  max-width: 70px;
+  margin-bottom: -50;
+}
+p{
+  margin-top: -5px;
+  font-size: 0.7em;
+  font-weight: 700;
+}
+#top2, #top3{
+  margin-top: -60px;
+}
+/* Ajuste para que el top 1 quede en el centro */
+.image-box:nth-child(2) {
+    display: block;
+    margin: 0 auto;
+}
+#image-box2{
+  left: -50px;
+  margin-top: -60px;
+}
+ #image-box3{
+  right: -40px; /* Mueve la imagen del top 3 más a la derecha */
+  margin-top: -60px;
+ }
+
+/* Estilo Claro para Tabla con Esquinas Redondeadas */
+.table-container {
+  margin-top: 10px;
+  overflow-x: auto;
+  font-weight: 600;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 4px;
+  margin-top: 10px;
+  border-radius: 12px;
+}
+
+th, td {
+  padding: 8px;
+  background: #e0e0e0;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 0.6em;
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th {
+  background: #e0e0e0;
+  color: #333;
+  text-transform: uppercase;
+  font-size: 0.7em;
+  font-weight: 800;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+
+
+/* Inputs y botones */
+input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 6px;
+  background: #252525;
+  color: white;
+  text-align: center;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #0085FF;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background:
+#003E75;
+}
+footer{
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 400px;
+  width: 100%;
+  
+}
+.toggleDiv {
+            display: none;
+            padding: 10px;
+            margin-top: 10px;
+            
+        }
+
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    padding: 15px;
+  }
+  input, button {
+    font-size: 1rem;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container" >
+    
+    <div class="top-clans">
+      <h3 style="margin-top: -5px;">Tops 3</h3>
+      <div class="image-box">
+        <p style="margin-bottom: 20px;">top 1</p>
+        <img id="img1" src="" > <p id="top1"></p>
+    </div>
+    <div class="image-box" id="image-box2">
+      <p style="margin-bottom: 65px;">top 2</p>
+        <img id="img2" src="" ><p id="top2"></p>
+    </div>
+    <div class="image-box" id="image-box3" >
+      <p style="margin-bottom: 65px;">top 3</p>
+        <img id="img3" src="" ><p id="top3"></p>
+    </div>
+      
+        
+       
+       
+     
+    </div>
+    <div class="result" id="result"></div>
+    <div class="table-container">
+      <table id="results-table">
+        <thead>
+          <tr>
+            <th>Top</th>
+            <th>Equipo</th>
+            <th>Kills</th>
+            <th>Pts</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+   
+  </div>
+
+  
+  
+
+  <footer>
+    
+    
+  <div id="div1" class="toggleDiv">
+    
+    
+    <input type="text" id="player-name" placeholder="Nombre de equipo" />
+    
+    <input type="number" id="kills" placeholder="Cantidad de Kills:" />
+    
+    <input type="number" id="position" placeholder="Posición Obtenida:" />
+    <button onclick="calcularPuntos()">Añadir</button>
+    <button onclick="reiniciarResultados()">Reiniciar Resultados</button>
+  
+  </div>
+  <div id="div2" class="toggleDiv">
+    <label for="player-name">logo top 1</label>
+    <input type="file" id="file1" accept="image/*">
+    <label for="player-name">logo top 2</label>
+    <input type="file" id="file2" accept="image/*">
+    <label for="player-name">logo top 3</label>
+    <input type="file" id="file3" accept="image/*">
+
+  </div>
+    <button style="width: 32%;" onclick="toggleDiv('div1')"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h357l-80 80H200v560h560v-278l80-80v358q0 33-23.5 56.5T760-120H200Zm280-360ZM360-360v-170l367-367q12-12 27-18t30-6q16 0 30.5 6t26.5 18l56 57q11 12 17 26.5t6 29.5q0 15-5.5 29.5T897-728L530-360H360Zm481-424-56-56 56 56ZM440-440h56l232-232-28-28-29-28-231 231v57Zm260-260-29-28 29 28 28 28-28-28Z"/></svg>
+    </button>
+    <button style="width: 32%;" onclick="toggleDiv('div2')">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-480ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h320v80H200v560h560v-320h80v320q0 33-23.5 56.5T760-120H200Zm40-160h480L570-480 450-320l-90-120-120 160Zm440-320v-80h-80v-80h80v-80h80v80h80v80h-80v80h-80Z"/></svg>
+    </button>
+    <button style="width: 32%;"  onclick="capturarImagen()">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg>
+    </button>
+    
+
+
+</footer>
+  <script>
+    const puntosPorKill = 2;
+    const puntosPorPosicion = [15, 12, 10, 8, 7, 6, 5, 4, 3, 2, 1, 0];
+    let resultados = JSON.parse(localStorage.getItem('resultados')) || [];
+
+    function calcularPuntos() {
+      const playerName = document.getElementById('player-name').value.trim();
+      if (!playerName) {
+        alert('Por favor, ingresa el nombre del clan.');
+        return;
+      }
+      const kills = parseInt(document.getElementById('kills').value) || 0;
+      const posicion = parseInt(document.getElementById('position').value) || 0;
+      if (posicion < 1 || posicion > 12) {
+        alert('La posición ingresada no es válida.');
+        return;
+      }
+
+      const puntos = (kills * puntosPorKill) + puntosPorPosicion[posicion - 1];
+      const index = resultados.findIndex(resultado => resultado.nombre.toLowerCase() === playerName.toLowerCase());
+
+      if (index !== -1) {
+        resultados[index].kills += kills;
+        resultados[index].puntos += puntos;
+      } else {
+        resultados.push({ nombre: playerName, kills, puntos });
+      }
+      resultados.sort((a, b) => b.puntos - a.puntos);
+      localStorage.setItem('resultados', JSON.stringify(resultados));
+      mostrarResultados();
+    }
+
+    function mostrarTopClanes() {
+      const topIds = ["top1", "top2", "top3"];
+      
+      resultados.slice(0, 3).forEach((clan, index) => {
+          document.getElementById(topIds[index]).textContent = `${clan.nombre} `;
+      });
+
+      // Si hay menos de 3 clanes, los restantes se quedan con "---"
+      for (let i = resultados.length; i < 3; i++) {
+          document.getElementById(topIds[i]).textContent = `${i + 1}. ---`;
+      }
+  }
+
+  function mostrarResultados() {
+      const resultsTableBody = document.querySelector('#results-table tbody');
+      resultsTableBody.innerHTML = '';
+
+      resultados.forEach((resultado, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+              <td>${index + 1}</td>
+              <td>${resultado.nombre}</td>
+              <td>${resultado.kills}</td>
+              <td>${resultado.puntos}</td>
+          `;
+          resultsTableBody.appendChild(row);
+      });
+
+      mostrarTopClanes();
+  }
+
+  mostrarResultados();
+
+    function reiniciarResultados() {
+      if (confirm('¿Estás seguro de que quieres reiniciar los resultados?')) {
+        resultados = [];
+        localStorage.removeItem('resultados');
+        mostrarResultados();
+        alert('Los resultados han sido reiniciados.');
+      }
+    }
+    
+    mostrarResultados();
+  </script>
+ <script>
+  function toggleDiv(divId) {
+      // Obtiene todos los divs que deben alternarse
+      var divs = document.querySelectorAll(".toggleDiv");
+
+      // Recorre todos los divs y los oculta
+      divs.forEach(function(div) {
+          if (div.id !== divId) {
+              div.style.display = "none";
+          }
+      });
+
+      // Muestra u oculta el div seleccionado
+      var selectedDiv = document.getElementById(divId);
+      if (selectedDiv.style.display === "none" || selectedDiv.style.display === "") {
+          selectedDiv.style.display = "block";
+      } else {
+          selectedDiv.style.display = "none";
+      }
+  }
+</script>
+
+<script>
+  function mostrarImagen(input, imgID) {
+      const file = input.files[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+              document.getElementById(imgID).src = e.target.result;
+          }
+          reader.readAsDataURL(file);
+      }
+  }
+
+  document.getElementById("file1").addEventListener("change", function() {
+      mostrarImagen(this, "img1");
+  });
+
+  document.getElementById("file2").addEventListener("change", function() {
+      mostrarImagen(this, "img2");
+  });
+
+  document.getElementById("file3").addEventListener("change", function() {
+      mostrarImagen(this, "img3");
+  });
+</script>
+<script>
+  function capturarImagen() {
+      const contenedor = document.querySelector('.container'); // Selecciona el div con clase 'container'
+
+      html2canvas(contenedor, {
+          onrendered: function(canvas) {
+              // Convierte el canvas a una imagen en base64
+              const imagen = canvas.toDataURL("image/png");
+
+              // Crea un enlace para la descarga
+              const enlace = document.createElement('a');
+              enlace.href = imagen;
+              enlace.download = 'imagen-contenido.png'; // Nombre del archivo
+              document.body.appendChild(enlace); // Asegura que el enlace esté en el DOM
+
+              // Simula el clic para descargar la imagen
+              enlace.click();
+
+              // Elimina el enlace del DOM después de la descarga
+              document.body.removeChild(enlace);
+          }
+      });
+  }
+</script>
+</body>
+</html>
